@@ -1,5 +1,5 @@
 import { all, fork } from "redux-saga/effects";
-import getImagesSaga from './header/saga'
+import getImagesSaga from './cardContainer/saga'
 
 export default function* rootSaga() {
     yield all([

@@ -1,10 +1,10 @@
-import { GET_IMAGES } from './actionTypes'
+import { SET_QUERY } from './actionTypes'
 
-const getImages = (payload) => {
+const setQuery = (payload) => {
     return{
-        type: GET_IMAGES,
+        type: SET_QUERY,
         payload
     }
 };
 
-export default getImages;
+export default setQuery;

@@ -1,3 +1,1 @@
-export const GET_IMAGES = 'GET_IMAGES';
-export const GET_IMAGES_SUCCESS = 'GET_IMAGES:SUCCESS';
-export const GET_IMAGES_FAILED = 'GET_IMAGES:FAILED';
+export const SET_QUERY = 'SET_QUERY';

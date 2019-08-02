@@ -1,13 +1,9 @@
-import getImages from '../../logic/header/actions'
-export const mapStateToProps = state => {
-    const { images } = state;
-    return { images }
-}
+import setQuery from '../../logic/header/actions'
 
 export const mapDispatchToProps = (dispatch) => {
     return{
-        getData(query){
-            dispatch(getImages(query))
+        setQuery(query){
+            dispatch(setQuery(query))
         }
     }
 }

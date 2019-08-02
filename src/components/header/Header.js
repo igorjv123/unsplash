@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import TextInput from '../textInput/TextInput'
 import './style.sass'
 import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps} from "./container";
+import { mapDispatchToProps } from "./container";
+import MainInputButton from '../mainInputButton/MainInputButton'
+import { func } from 'prop-types'
+
 
 class Header extends Component{
     constructor(props){
@@ -11,26 +14,33 @@ class Header extends Component{
             query: ''
         }
     }
+    static propTypes = {
+        setQuery: func
+    }
 
-    handleInputChange = (e) => {
-        this.setState({query: e.target.value});
+    static defaultProps = {
+        setQuery: () => {}
+    }
+
+    handleInputChange = ({ target }) => {
+        this.setState({query: target.value});
     }
 
     handleBtnClick = () => {
-        this.props.getData(this.state.query)
+        const { query } = this.state;
+        this.props.setQuery(query)
     }
 
     render(){
+        console.log(this.props)
         const { query } = this.state;
-        const { images } = this.props;
-        console.log(images)
         return(
             <div className = 'header' >
                 <TextInput className='header__input' placeholder={'Type smth...'} value = {query} onChange={this.handleInputChange}/>
-                <button className='' onClick={this.handleBtnClick}>OK</button>
+                <MainInputButton className={'header__search-button'} onClick={this.handleBtnClick}> Search </MainInputButton>
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(Header);
