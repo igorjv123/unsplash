@@ -1,15 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/header/Header'
-import CardContainer from './components/cardContainer/CardContainer'
+import CardContainer from './components/cardContainer/CardContainer';
+import {Layout} from "./logic/hoc/Layout";
+
 function App() {
-  return (
-    <div className="App">
-      <Header />
-      <CardContainer />
-    </div>
-  );
+    return (
+            <Layout>
+                <CardContainer/>
+            </Layout>
+    );
 }
 
 export default App;

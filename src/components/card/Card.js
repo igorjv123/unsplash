@@ -1,10 +1,11 @@
 import React from 'react';
 import './style.sass';
 import { string, object } from 'prop-types';
-import sampleImg from './sample.png';
-
+import sampleImg from '../../assets/sample.png';
+import HOC from "../../logic/HOC";
 const Card = (props) => {
-    const { alt_description, urls } = props.image
+
+    const { alt_description, urls } = props.image;
     return(
         <div className='card'>
             <img className='card__image' src={urls.regular} alt=""/>
@@ -24,4 +25,4 @@ Card.defaultProps = {
         regular: sampleImg
     }
 };
-export default Card;
+export default  HOC(Card);

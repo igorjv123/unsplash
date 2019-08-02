@@ -32,7 +32,6 @@ class Header extends Component{
     }
 
     render(){
-        console.log(this.props)
         const { query } = this.state;
         return(
             <div className = 'header' >

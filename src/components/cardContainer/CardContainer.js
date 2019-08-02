@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './style.sass'
 import { connect } from "react-redux";
 import { mapDispatchToProps, mapStateToProps } from "./container";
-import loading from './giphy.gif'
+import loading from '../../assets/giphy.gif'
 import { string, func, object } from 'prop-types'
 import Card from '../card/Card'
 
@@ -14,13 +14,15 @@ class CardContainer extends Component {
         this.state = {
             isLoading : false,
             page: 1,
+            usersArr:[]
         }
     }
+
     static propTypes = {
         query: string,
         getData: func,
         loadData: func,
-        images: object
+        images: object || string
     }
     static defaultProps = {
         query: '',
@@ -34,7 +36,7 @@ class CardContainer extends Component {
             this.setState({isLoading: true})
             this.props.getData(query);
         }
-
+        // todo:: Івенти краще вішати на componentWillMount Удаляти лістенер тоже надо
         window.addEventListener('scroll', this.handleScroll, true);
     }
 
@@ -60,7 +62,6 @@ class CardContainer extends Component {
                 }
             }
         )
-
     }
 
     render() {
@@ -76,8 +77,9 @@ class CardContainer extends Component {
                     null
                 }
 
+                <div>{isLoading}</div>
                 {isLoading && images.results?
-
+                    //todo:: Зробити нормально без тернарки в тернарці
                     images.results.length < images.total?
 
                         <img className='card-container__loading-img' src={ loading } alt='loading' /> : null
@@ -91,5 +93,6 @@ class CardContainer extends Component {
         )
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);

@@ -1,4 +1,4 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { put, all, takeLatest } from 'redux-saga/effects';
 import {
     GET_IMAGES,
     GET_IMAGES_SUCCESS,
@@ -17,6 +17,7 @@ const unsplash = new Unsplash({
     applicationId: ACCESS_KEY,
     secret: SECRET_KEY
 });
+
 
 function* getImages(action) {
     try {
