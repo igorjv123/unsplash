@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './style.sass'
 import { connect } from "react-redux";
-import { mapDispatchToProps, mapStateToProps } from "./container";
 import loading from '../../assets/giphy.gif'
 import { string, func, object } from 'prop-types'
 import Card from '../card/Card'
-
+import { getImagesAsync, loadImagesAsync } from '../../logic/cardContainer/actions'
 
 
 class CardContainer extends Component {
@@ -14,35 +13,39 @@ class CardContainer extends Component {
         this.state = {
             isLoading : false,
             page: 1,
-            usersArr:[]
         }
     }
 
     static propTypes = {
         query: string,
-        getData: func,
-        loadData: func,
+        getImages: func,
+        loadImages: func,
         images: object || string
     }
     static defaultProps = {
         query: '',
-        getData: () => {},
-        loadData: () => {},
+        getImages: () => {},
+        loadImages: () => {},
         images: {}
     }
     componentDidMount() {
         const { query } = this.props
         if(query.length > 0) {
             this.setState({isLoading: true})
-            this.props.getData(query);
+            this.props.getImages(query);
         }
-        // todo:: Івенти краще вішати на componentWillMount Удаляти лістенер тоже надо
+    }
+    componentWillMount() {
         window.addEventListener('scroll', this.handleScroll, true);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, true)
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.query !== this.props.query) {
-            this.props.getData(this.props.query);
+            this.props.getImages(this.props.query);
             this.setState({ isLoading: true })
         }
         if (prevProps.images !== this.props.images) {
@@ -58,7 +61,7 @@ class CardContainer extends Component {
         }
         this.setState({ page: page + 1, isLoading: true}, () => {
                 if (images.total_pages >= page) {
-                    this.props.loadData({query: query, page: this.state.page})
+                    this.props.loadImages({query: query, page: this.state.page})
                 }
             }
         )
@@ -69,30 +72,34 @@ class CardContainer extends Component {
         const { isLoading } = this.state;
         return(
             <div className='card-container'>
-                {images.results ?
-                    images.results.map((item) =>
+                {images.results && images.results.map((item) =>
                         <Card image={ item } key={'main' + item.id}/>
                     )
-                :
-                    null
                 }
 
-                <div>{isLoading}</div>
-                {isLoading && images.results?
-                    //todo:: Зробити нормально без тернарки в тернарці
-                    images.results.length < images.total?
-
-                        <img className='card-container__loading-img' src={ loading } alt='loading' /> : null
-                :
-                    null
+                {isLoading && images.results && images.results.length < images.total &&
+                    <img className='card-container__loading-img' src={ loading } alt='loading' />
                 }
-
-
 
             </div>
         )
     }
 }
 
+const mapStateToProps = state => {
+    const { images, query } = state;
+    return { images, query };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        getImages(data){
+            dispatch(getImagesAsync(data));
+        },
+        loadImages(data){
+            dispatch(loadImagesAsync(data))
+        }
+    }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);

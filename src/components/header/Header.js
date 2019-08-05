@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import TextInput from '../textInput/TextInput'
 import './style.sass'
 import { connect } from 'react-redux';
-import { mapDispatchToProps } from "./container";
 import MainInputButton from '../mainInputButton/MainInputButton'
 import { func } from 'prop-types'
+import setQuery from '../../logic/header/actions'
 
 
 class Header extends Component{
@@ -23,7 +23,7 @@ class Header extends Component{
     }
 
     handleInputChange = ({ target }) => {
-        this.setState({query: target.value});
+        this.setState({ query: target.value });
     }
 
     handleBtnClick = () => {
@@ -31,7 +31,7 @@ class Header extends Component{
         this.props.setQuery(query)
     }
 
-    render(){
+    render() {
         const { query } = this.state;
         return(
             <div className = 'header' >
@@ -39,6 +39,14 @@ class Header extends Component{
                 <MainInputButton className={'header__search-button'} onClick={this.handleBtnClick}> Search </MainInputButton>
             </div>
         )
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        setQuery(query){
+            dispatch(setQuery(query))
+        }
     }
 }
 
