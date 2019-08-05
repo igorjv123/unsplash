@@ -36,8 +36,13 @@ class CardContainer extends Component {
             this.setState({isLoading: true})
             this.props.getData(query);
         }
-        // todo:: Івенти краще вішати на componentWillMount Удаляти лістенер тоже надо
+    }
+    componentWillMount() {
         window.addEventListener('scroll', this.handleScroll, true);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, true)
     }
 
     componentDidUpdate(prevProps) {
@@ -69,22 +74,13 @@ class CardContainer extends Component {
         const { isLoading } = this.state;
         return(
             <div className='card-container'>
-                {images.results ?
-                    images.results.map((item) =>
+                {images.results && images.results.map((item) =>
                         <Card image={ item } key={'main' + item.id}/>
                     )
-                :
-                    null
                 }
 
-                <div>{isLoading}</div>
-                {isLoading && images.results?
-                    //todo:: Зробити нормально без тернарки в тернарці
-                    images.results.length < images.total?
-
-                        <img className='card-container__loading-img' src={ loading } alt='loading' /> : null
-                :
-                    null
+                { isLoading && images.results && images.results.length < images.total &&
+                    <img className='card-container__loading-img' src={ loading } alt='loading' />
                 }
 
 
