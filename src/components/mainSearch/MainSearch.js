@@ -4,10 +4,10 @@ import './style.sass'
 import { connect } from 'react-redux';
 import MainInputButton from '../mainInputButton/MainInputButton'
 import { func } from 'prop-types'
-import setQuery from '../../logic/header/actions'
+import setQuery from '../../logic/mainSearch/actions'
 
 
-class Header extends Component{
+class MainSearch extends Component{
     constructor(props){
         super(props)
         this.state = {
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(MainSearch);

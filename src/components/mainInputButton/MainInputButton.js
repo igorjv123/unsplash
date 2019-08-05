@@ -15,7 +15,7 @@ MainInputButton.propTypes = {
 };
 
 MainInputButton.defaultProps = {
-    className: 'header-button',
+    className: 'mainSearch-button',
     onClick: () => {},
     children: 'OK'
 };
