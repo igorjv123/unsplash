@@ -1,11 +1,13 @@
 import React from 'react';
+import ImageItem from '../components/imageItem/ImageItem';
+import './style.sass'
 
-const MainPage = () => {
+const ImagePage = () => {
     return(
         <div className={'image-page'}>
-
+            <ImageItem />
         </div>
     )
 }
 
-export default MainPage;
+export default ImagePage;

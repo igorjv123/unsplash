@@ -6,10 +6,12 @@ import HOC from "../../logic/HOC";
 const Card = (props) => {
 
     const { alt_description, urls } = props.image;
+    const { onClick, name } = props;
     return(
         <div className='card'>
             <img className='card__image' src={urls.regular} alt=""/>
             <p className='card__description'>{alt_description}</p>
+            <button onClick={ onClick } name={name} >Open</button>
         </div>
     )
 };

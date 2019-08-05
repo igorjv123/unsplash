@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import ImagePage from './pages/ImagePage';
 import MainPage from './pages/MainPage';
-
 import { BrowserRouter as Router, Route,  } from "react-router-dom";
 
 function App() {

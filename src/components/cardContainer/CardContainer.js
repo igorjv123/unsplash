@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import loading from '../../assets/giphy.gif'
 import { string, func, object } from 'prop-types'
 import Card from '../card/Card'
-import { getImagesAsync, loadImagesAsync } from '../../logic/cardContainer/actions'
+import { withRouter } from "react-router";
+import { getImagesAsync, loadImagesAsync, setImage} from '../../logic/cardContainer/actions'
 
 
 class CardContainer extends Component {
@@ -29,6 +30,7 @@ class CardContainer extends Component {
         images: {}
     }
     componentDidMount() {
+    
         const { query } = this.props
         if(query.length > 0) {
             this.setState({isLoading: true})
@@ -50,6 +52,8 @@ class CardContainer extends Component {
         }
         if (prevProps.images !== this.props.images) {
             this.setState({ isLoading: false })
+            this.props.setActiveImage(this.props.images.results[0]);
+
         }
     }
 
@@ -67,13 +71,28 @@ class CardContainer extends Component {
         )
     }
 
+    handleItemClick = (e) => {
+        const { history }  = this.props;
+        const { name } = e.target;
+        const images = this.props.images.results;
+        let image;
+        images.forEach(item => {
+            if(item.id === name) {
+                image = item
+            }
+        });
+        this.props.setActiveImage(image);
+        history.push('/image')
+
+    }
+
     render() {
         const { images } = this.props;
         const { isLoading } = this.state;
         return(
             <div className='card-container'>
                 {images.results && images.results.map((item) =>
-                        <Card image={ item } key={'main' + item.id}/>
+                        <Card onClick={this.handleItemClick} image={ item } key={'main' + item.id} name={item.id}/>
                     )
                 }
 
@@ -97,9 +116,12 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(getImagesAsync(data));
         },
         loadImages(data){
-            dispatch(loadImagesAsync(data))
+            dispatch(loadImagesAsync(data));
+        },
+        setActiveImage(image) {
+            dispatch(setImage(image));
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CardContainer));

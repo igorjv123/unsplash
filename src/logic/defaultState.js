@@ -1,5 +1,6 @@
 const state = {
     query: '',
-    images: {}
+    images: {},
+    active: {}
 };
 export default state;
