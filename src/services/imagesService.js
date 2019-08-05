@@ -1,4 +1,4 @@
-import { ACCESS_KEY, SECRET_KEY } from "../apiKeys";
+import { ACCESS_KEY, SECRET_KEY } from "../apiConfig";
 
 const Unsplash = require('unsplash-js').default;
 

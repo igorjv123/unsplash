@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './style.sass'
 import { connect } from "react-redux";
-import { mapDispatchToProps, mapStateToProps } from "./container";
 import loading from '../../assets/giphy.gif'
 import { string, func, object } from 'prop-types'
 import Card from '../card/Card'
+import { getImagesAsync, loadImagesAsync } from '../../logic/cardContainer/actions'
+
 
 class CardContainer extends Component {
     constructor(props){
@@ -85,5 +86,20 @@ class CardContainer extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    const { images, query } = state;
+    return { images, query };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        getImages(data){
+            dispatch(getImagesAsync(data));
+        },
+        loadImages(data){
+            dispatch(loadImagesAsync(data))
+        }
+    }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);
