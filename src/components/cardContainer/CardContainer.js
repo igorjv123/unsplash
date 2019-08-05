@@ -6,35 +6,32 @@ import loading from '../../assets/giphy.gif'
 import { string, func, object } from 'prop-types'
 import Card from '../card/Card'
 
-
-
 class CardContainer extends Component {
     constructor(props){
         super(props)
         this.state = {
             isLoading : false,
             page: 1,
-            usersArr:[]
         }
     }
 
     static propTypes = {
         query: string,
-        getData: func,
-        loadData: func,
+        getImages: func,
+        loadImages: func,
         images: object || string
     }
     static defaultProps = {
         query: '',
-        getData: () => {},
-        loadData: () => {},
+        getImages: () => {},
+        loadImages: () => {},
         images: {}
     }
     componentDidMount() {
         const { query } = this.props
         if(query.length > 0) {
             this.setState({isLoading: true})
-            this.props.getData(query);
+            this.props.getImages(query);
         }
     }
     componentWillMount() {
@@ -47,7 +44,7 @@ class CardContainer extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.query !== this.props.query) {
-            this.props.getData(this.props.query);
+            this.props.getImages(this.props.query);
             this.setState({ isLoading: true })
         }
         if (prevProps.images !== this.props.images) {
@@ -63,7 +60,7 @@ class CardContainer extends Component {
         }
         this.setState({ page: page + 1, isLoading: true}, () => {
                 if (images.total_pages >= page) {
-                    this.props.loadData({query: query, page: this.state.page})
+                    this.props.loadImages({query: query, page: this.state.page})
                 }
             }
         )
@@ -79,11 +76,9 @@ class CardContainer extends Component {
                     )
                 }
 
-                { isLoading && images.results && images.results.length < images.total &&
+                {isLoading && images.results && images.results.length < images.total &&
                     <img className='card-container__loading-img' src={ loading } alt='loading' />
                 }
-
-
 
             </div>
         )

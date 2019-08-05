@@ -1,4 +1,4 @@
-import { getImages, loadImages } from '../../logic/cardContainer/actions'
+import { getImagesAsync, loadImagesAsync } from '../../logic/cardContainer/actions'
 export const mapStateToProps = state => {
     const { images, query } = state;
     return { images, query };
@@ -6,11 +6,11 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = (dispatch) => {
     return{
-        getData(data){
-            dispatch(getImages(data));
+        getImages(data){
+            dispatch(getImagesAsync(data));
         },
-        loadData(data){
-            dispatch(loadImages(data))
+        loadImages(data){
+            dispatch(loadImagesAsync(data))
         }
     }
 }
