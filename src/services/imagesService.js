@@ -13,6 +13,11 @@ class ImagesService {
             .then(res => res.json())
             .catch(err => err.message);
     }
+    getPopularImages = (page) => {
+        return unsplash.collections.listCollections(page, 10, 'popular')
+            .then(res => res.json())
+            .catch(err => err.message);
+    }
 }
 
 export default new ImagesService();

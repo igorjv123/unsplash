@@ -5,7 +5,7 @@ import loading from '../../assets/giphy.gif'
 import { string, func, object } from 'prop-types'
 import Card from '../card/Card'
 import { withRouter } from "react-router";
-import { getImagesAsync, loadImagesAsync, setImage} from '../../logic/cardContainer/actions'
+import { getImagesAsync, loadImagesAsync, getPopularImagesAsync, loadPopularImagesAsync,setImage } from '../../logic/cardContainer/actions'
 
 
 class CardContainer extends Component {
@@ -36,6 +36,10 @@ class CardContainer extends Component {
             this.setState({isLoading: true})
             this.props.getImages(query);
         }
+        // else {
+        //     this.setState({ isLoading: true })
+        //     this.props.getPopImages(this.state.page)
+        // }
     }
     componentWillMount() {
         window.addEventListener('scroll', this.handleScroll, true);
@@ -52,8 +56,7 @@ class CardContainer extends Component {
         }
         if (prevProps.images !== this.props.images) {
             this.setState({ isLoading: false })
-            this.props.setActiveImage(this.props.images.results[0]);
-
+            // this.props.setActiveImage(this.props.images.results[0]);
         }
     }
 
@@ -64,6 +67,11 @@ class CardContainer extends Component {
             return;
         }
         this.setState({ page: page + 1, isLoading: true}, () => {
+                if(this.props.query.length < 1){
+                    this.props.loadPopularImages(this.state.page)
+                    return
+                }
+
                 if (images.total_pages >= page) {
                     this.props.loadImages({query: query, page: this.state.page})
                 }
@@ -118,8 +126,14 @@ const mapDispatchToProps = (dispatch) => {
         loadImages(data){
             dispatch(loadImagesAsync(data));
         },
+        getPopImages(page){
+            dispatch(getPopularImagesAsync(page))
+        },
         setActiveImage(image) {
             dispatch(setImage(image));
+        },
+        loadPopularImages(page) {
+            dispatch(loadPopularImagesAsync(page))
         }
     }
 }

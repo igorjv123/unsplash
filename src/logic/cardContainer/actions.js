@@ -14,6 +14,23 @@ const loadImages = (payload) => {
     }
 }
 
+export const getPopularImagesAsync = () => {
+    return dispatch =>
+        getImagesService.getPopularImages(1)
+            .then(res => {
+                dispatch(getImages(res))
+            })
+}
+
+export const loadPopularImagesAsync = (page) => {
+    return dispatch =>
+        getImagesService.getPopularImages(page)
+            .then(res => {
+                console.log(res)
+                dispatch(loadImages(res))
+            })
+}
+
 export const setImage = (payload) => {
     return {
         type: SET_IMAGE,

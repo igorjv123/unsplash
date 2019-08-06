@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageItem from '../components/imageItem/ImageItem';
+import ImageItem from '../../components/imageItem/ImageItem';
 import './style.sass'
 
 const ImagePage = () => {

@@ -1,5 +1,5 @@
 const state = {
-    query: '',
+    query: 'popular',
     images: {},
     active: {}
 };

@@ -1,4 +1,6 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './style.sass';
 import { string, object } from 'prop-types';
 import sampleImg from '../../assets/sample.png';
@@ -9,9 +11,24 @@ const Card = (props) => {
     const { onClick, name } = props;
     return(
         <div className='card'>
-            <img className='card__image' src={urls.regular} alt=""/>
-            <p className='card__description'>{alt_description}</p>
-            <button onClick={ onClick } name={name} >Open</button>
+            {/*<div className='card__image'>*/}
+                <LazyLoadImage
+                    className='card__image'
+                    alt={alt_description}
+                    effect="blur"
+                    src={urls.regular}
+                    width='400px'
+                    height='380px'
+                    style={{objectFit: 'cover', objectPosition:'center'}}
+                />
+
+
+                {/*<img className='card__image' src={urls.regular} alt=""/>*/}
+            {/*</div>*/}
+            <div className='card-info'>
+                <p className='card-info__description'>{alt_description}</p>
+                <button className='card-info__open-btn' onClick={ onClick } name={name} >Open</button>
+            </div>
         </div>
     )
 };
