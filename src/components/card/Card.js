@@ -6,28 +6,30 @@ import { string, object } from 'prop-types';
 import sampleImg from '../../assets/sample.png';
 import HOC from "../../logic/HOC";
 const Card = (props) => {
-
-    const { alt_description, urls } = props.image;
+    const { alt_description, urls, id } = props.image;
     const { onClick, name } = props;
+
+    const handleClick = () => {
+        const { image, onClick}  = props;
+        onClick(image);
+    }
+
+
     return(
-        <div className='card'>
-            {/*<div className='card__image'>*/}
+        <div className='card' id = {id} onClick={ handleClick }>
                 <LazyLoadImage
                     className='card__image'
                     alt={alt_description}
                     effect="blur"
                     src={urls.regular}
                     width='400px'
-                    height='380px'
+                    height='400px'
                     style={{objectFit: 'cover', objectPosition:'center'}}
                 />
 
-
-                {/*<img className='card__image' src={urls.regular} alt=""/>*/}
-            {/*</div>*/}
             <div className='card-info'>
                 <p className='card-info__description'>{alt_description}</p>
-                <button className='card-info__open-btn' onClick={ onClick } name={name} >Open</button>
+                {/*<button className='card-info__open-btn' >Open</button>*/}
             </div>
         </div>
     )

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './style.sass'
+import './style.sass';
 import { connect } from "react-redux";
-import loading from '../../assets/giphy.gif'
-import { string, func, object } from 'prop-types'
-import Card from '../card/Card'
+import loading from '../../assets/giphy.gif';
+import { string, func, object } from 'prop-types';
+import Card from '../card/Card';
 import { withRouter } from "react-router";
-import { getImagesAsync, loadImagesAsync, getPopularImagesAsync, loadPopularImagesAsync,setImage } from '../../logic/cardContainer/actions'
+import { getImagesAsync, loadImagesAsync,setImage } from '../../logic/cardContainer/actions'
 
 
 class CardContainer extends Component {
@@ -23,23 +23,20 @@ class CardContainer extends Component {
         loadImages: func,
         images: object || string
     }
+
     static defaultProps = {
         query: '',
         getImages: () => {},
         loadImages: () => {},
-        images: {}
+        images: {
+            results: []
+        }
     }
     componentDidMount() {
-    
-        const { query } = this.props
-        if(query.length > 0) {
-            this.setState({isLoading: true})
-            this.props.getImages(query);
-        }
-        // else {
-        //     this.setState({ isLoading: true })
-        //     this.props.getPopImages(this.state.page)
-        // }
+        const { query = 'popular' } = this.props.query && this.props
+        this.setState({isLoading: true})
+        this.props.getImages(query);
+
     }
     componentWillMount() {
         window.addEventListener('scroll', this.handleScroll, true);
@@ -56,55 +53,46 @@ class CardContainer extends Component {
         }
         if (prevProps.images !== this.props.images) {
             this.setState({ isLoading: false })
-            // this.props.setActiveImage(this.props.images.results[0]);
         }
     }
 
     handleScroll = () => {
         const { page } = this.state;
-        const { query, images } = this.props;
+        const { images } = this.props;
+        const { query = 'popular' } = this.props.query && this.props
         if (window.innerHeight + document.documentElement.scrollTop + 1 < document.documentElement.offsetHeight){
             return;
         }
         this.setState({ page: page + 1, isLoading: true}, () => {
-                if(this.props.query.length < 1){
-                    this.props.loadPopularImages(this.state.page)
-                    return
-                }
-
-                if (images.total_pages >= page) {
-                    this.props.loadImages({query: query, page: this.state.page})
-                }
+            if (images.total_pages >= page) {
+                this.props.loadImages({
+                    query: query,
+                    page: this.state.page
+                })
             }
-        )
+        })
     }
 
-    handleItemClick = (e) => {
-        const { history }  = this.props;
-        const { name } = e.target;
-        const images = this.props.images.results;
-        let image;
-        images.forEach(item => {
-            if(item.id === name) {
-                image = item
-            }
-        });
+    handleItemClick = (image) => {
         this.props.setActiveImage(image);
-        history.push('/image')
-
+        this.props.history.push('/image')
     }
 
     render() {
         const { images } = this.props;
         const { isLoading } = this.state;
-        return(
+        const shouldBeLoading = isLoading && images.results.length < images.total;
+
+        return (
             <div className='card-container'>
-                {images.results && images.results.map((item) =>
-                        <Card onClick={this.handleItemClick} image={ item } key={'main' + item.id} name={item.id}/>
+                {
+                    images.results.map((item) =>
+                        <Card onClick={this.handleItemClick} image={ item } key={'main' + item.id}/>
                     )
                 }
 
-                {isLoading && images.results && images.results.length < images.total &&
+                {
+                    shouldBeLoading &&
                     <img className='card-container__loading-img' src={ loading } alt='loading' />
                 }
 
@@ -118,24 +106,10 @@ const mapStateToProps = state => {
     return { images, query };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        getImages(data){
-            dispatch(getImagesAsync(data));
-        },
-        loadImages(data){
-            dispatch(loadImagesAsync(data));
-        },
-        getPopImages(page){
-            dispatch(getPopularImagesAsync(page))
-        },
-        setActiveImage(image) {
-            dispatch(setImage(image));
-        },
-        loadPopularImages(page) {
-            dispatch(loadPopularImagesAsync(page))
-        }
-    }
+const mapDispatchToProps = {
+        getImages: getImagesAsync,
+        loadImages: loadImagesAsync,
+        setActiveImage: setImage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CardContainer));
