@@ -1,9 +1,9 @@
 const state = {
-    query: '',
+    query: 'popular',
     images: {
         results: []
     },
-    active: {}
+    activeImage: {},
 
 };
 export default state;

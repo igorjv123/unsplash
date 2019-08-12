@@ -8,7 +8,7 @@ function App() {
     return (
         <Router>
             <Route exact path="/" component={ MainPage } />
-            <Route path="/image" component={ ImagePage } />
+            <Route path="/image/:id" component={ ImagePage } />
         </Router>
     );
 }

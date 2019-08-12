@@ -1,20 +1,35 @@
 import React from 'react';
 import TextInput from './TextInput';
-import { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
-import Enzyme from 'enzyme';
-
-Enzyme.configure({ adapter: new Adapter() });
+import { shallow, render } from 'enzyme';
 
 describe('TextInput', () => {
-    const onChangeFn = jest.fn(()=>'change');
+    const onChangeFn = jest.fn(() => 'change');
+    let placeholder = 'placeholder';
+    let className = 'class';
+    let value = 'val';
 
-    it('should call onc Change prop function', () => {
+    beforeEach(() => {
+        placeholder = 'placeholder';
+        className = 'class';
+        value = 'val';
+    })
 
-        const wrapper = mount(<TextInput onChange={onChangeFn}/>);
+    it('should call onChange prop function', () => {
+        const wrapper = shallow(<TextInput onChange={onChangeFn}/>);
         const input = wrapper.find('input')
 
         input.simulate('change');
+
         expect(onChangeFn).toHaveBeenCalled();
     });
-})
+
+    it('should set attribs from props', () => {
+        const wrapper = render(<TextInput
+            placeholder={placeholder}
+            className={className}
+            value={value}
+        />);
+
+        expect(wrapper).toMatchSnapshot();
+    });
+});

@@ -12,11 +12,11 @@ const ImageItem = (props) => {
         props.history.push('/')
     }
 
-    const { alt_description, user, urls, created_at, likes, tags, links } = props.activeImage;
+    const { alt_description, user, urls, created_at, likes, tags, links, description } = props.activeImage;
 
     return(
         <div className='image-item'>
-            <img className = 'image-item__image' src={urls.regular} alt={alt_description}/>
+            <img className = 'image-item__image' src={urls.regular} alt={description || alt_description}/>
 
             <div className='image-item__info'>
                 <p className='image-description'>{alt_description}</p>
@@ -67,8 +67,9 @@ ImageItem.defaultProps = {
 }
 
 const mapStateToProps = (state) => {
-    const { activeImage } = state;
-    return { activeImage }
+    // const { activeImage } = state;
+    // return { activeImage }
+    return {}
 }
 const maoDispatchToProps = (dispatch) => {
     return {

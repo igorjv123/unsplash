@@ -5,13 +5,15 @@ import './style.sass';
 import { string, object } from 'prop-types';
 import sampleImg from '../../assets/sample.png';
 import HOC from "../../logic/HOC";
+
 const Card = (props) => {
-    const { alt_description, urls, id } = props.image;
+
+    const { alt_description, urls, id, description } = props.image;
     const { onClick, name } = props;
 
     const handleClick = () => {
         const { image, onClick}  = props;
-        onClick(image);
+        onClick(id);
     }
 
 
@@ -28,7 +30,7 @@ const Card = (props) => {
                 />
 
             <div className='card-info'>
-                <p className='card-info__description'>{alt_description}</p>
+                <p className='card-info__description'>{description || alt_description}</p>
                 {/*<button className='card-info__open-btn' >Open</button>*/}
             </div>
         </div>

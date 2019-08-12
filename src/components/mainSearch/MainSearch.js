@@ -9,7 +9,7 @@ import setQuery from '../../logic/mainSearch/actions'
 
 const MainSearch = (props) => {
 
-    const [query, setQuery] = useState(props.query)
+    const [query, setQuery] = useState('')
 
 
     const handleInputChange = ({ target }) => {

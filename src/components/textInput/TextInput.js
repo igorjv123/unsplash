@@ -1,10 +1,15 @@
 import React from 'react';
 import { string, func } from 'prop-types';
 
-const TextInput = (props) => {
-    const { value, onChange, placeholder, className } = props;
+const TextInput = ({ value, onChange, placeholder, className }) => {
     return(
-        <input type="text" className={className} defaultValue={value} placeholder={placeholder} onChange={onChange}/>
+        <input
+            type="text"
+            className={className}
+            defaultValue={value}
+            placeholder={placeholder}
+            onChange={onChange}
+        />
     )
 };
 

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import { getImagesReducer, setActiveImage } from './cardContainer/reducer';
+import { getImagesReducer } from './cardContainer/reducer';
 import setQueryReducer from './mainSearch/reducer'
+import {imagePageReducer} from "./imagePage/reducer";
 
 const reducer = combineReducers({
     images: getImagesReducer,
     query: setQueryReducer,
-    activeImage: setActiveImage
+    activeImage: imagePageReducer,
+
 })
 export default reducer;

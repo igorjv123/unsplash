@@ -7,16 +7,23 @@ const unsplash = new Unsplash({
 });
 
 class ImagesService {
-    getImages = (query, page = 1) => {
+    static getImages = (query, page = 1) => {
         return unsplash.search.photos(query, page)
             .then(res => res.json())
             .catch(err => err.message);
-    }
-    getPopularImages = (page) => {
+    };
+
+    static getPopularImages = (page) => {
         return unsplash.collections.listCollections(page, 10, 'popular')
+            .then(res => res.json())
+            .catch(err => err.message);
+    }
+
+    static getImageById = (id) => {
+        return unsplash.photos.getPhoto(id)
             .then(res => res.json())
             .catch(err => err.message);
     }
 }
 
-export default new ImagesService();
+export default ImagesService;

@@ -6,49 +6,47 @@ import { string, func, object } from 'prop-types';
 import Card from '../card/Card';
 import { withRouter } from "react-router";
 import { getImagesAsync, loadImagesAsync,setImage } from '../../logic/cardContainer/actions'
+import {Link} from "react-router-dom";
 
 
-const CardContainer = (props) => {
+const CardContainer = ({images, setActiveImage, history, getImages, loadImages, query}) => {
     const [ isLoading, setIsLoading] = useState(false);
     const [ page, setPage ] = useState(1);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, true);
+
         return () => {
             window.removeEventListener('scroll', handleScroll, true)
         }
     }, [page])
 
     useEffect(() => {
-        const { query = 'popular' } = props.query && props
-        setIsLoading(true)
-        props.getImages(query);
-    }, [props.query])
+        setIsLoading(true);
+        getImages(query);
+    }, [query])
+
 
     useEffect(() => {
-        const { images } = props;
-        const { query = 'popular' } = props && props.query
         if (images.total_pages >= page) {
-            props.loadImages({
-                query: query,
-                page: page
+            loadImages({
+                query,
+                page
             })
         }
     }, [page])
 
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.offsetHeight){
+        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.offsetHeight) {
             setPage(page+1);
         }
+    };
+
+    const handleItemClick = (id) => {
+        history.push('/image/' + id)
+
     }
 
-    const handleItemClick = (image) => {
-        props.setActiveImage(image);
-        props.history.push('/image')
-
-    }
-
-    const { images } = props;
     const shouldBeLoading = isLoading && images.results.length < images.total;
 
     return (
@@ -93,7 +91,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
         getImages: getImagesAsync,
         loadImages: loadImagesAsync,
-        setActiveImage: setImage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CardContainer));

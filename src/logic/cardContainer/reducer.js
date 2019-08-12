@@ -4,7 +4,7 @@ import {
     GET_IMAGES_FAILED,
     LOAD_IMAGES_SUCCESS,
     LOAD_IMAGES_FAILED,
-    SET_IMAGE
+    SET_IMAGES,
     } from "./actionTypes";
 
 export const getImagesReducer = (state = defaultState.images, action) => {
@@ -31,20 +31,11 @@ export const getImagesReducer = (state = defaultState.images, action) => {
             return payload;
         }
 
-        default:{
-            return state;
+        case SET_IMAGES: {
+            return {results: []}
         }
-    }
-}
 
-export const setActiveImage = (state = defaultState.images, action) => {
-    const { payload, type } = action;
-    switch (type) {
-        case SET_IMAGE: {
-            return { ...payload }
-        }
-    
-        default: {
+        default:{
             return state;
         }
     }
