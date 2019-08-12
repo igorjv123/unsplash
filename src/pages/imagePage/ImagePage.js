@@ -10,7 +10,6 @@ const ImagePage = ({activeImage, getImage, match, setActive}) => {
         setActive()
         getImage(match.params.id)
     },[])
-    console.log(activeImage)
 
     return(
         <div className={'image-page'}>

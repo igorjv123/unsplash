@@ -66,18 +66,9 @@ ImageItem.defaultProps = {
     searchByTag: () => {}
 }
 
-const mapStateToProps = (state) => {
-    // const { activeImage } = state;
-    // return { activeImage }
-    return {}
-}
-const maoDispatchToProps = (dispatch) => {
-    return {
-        searchByTag(data) {
-            dispatch(setQuery(data))
-        }
-    }
+const mapDispatchToProps = {
+    searchByTag: setQuery
 };
 
-export default connect(mapStateToProps, maoDispatchToProps)(withRouter(ImageItem));
+export default connect(null, mapDispatchToProps)(withRouter(ImageItem));
 

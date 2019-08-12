@@ -1,2 +1,2 @@
 export const GET_IMAGE_BY_ID = 'GET_IMAGE_BY_ID';
-export const SET_ACTIVE_IMAGE = 'SET_ACTIVE_IMAGE';
+export const RESET_ACTIVE_IMAGE = 'RESET_ACTIVE_IMAGE';

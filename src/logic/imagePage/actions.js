@@ -1,4 +1,4 @@
-import { GET_IMAGE_BY_ID, SET_ACTIVE_IMAGE } from './actionTypes'
+import { GET_IMAGE_BY_ID, RESET_ACTIVE_IMAGE } from './actionTypes'
 import getImagesService from "../../services/imagesService";
 import { setImages } from '../cardContainer/actions';
 
@@ -12,7 +12,7 @@ const getImageById = (payload) => {
 
 export const setActiveImage = () => {
     return {
-        type: SET_ACTIVE_IMAGE
+        type: RESET_ACTIVE_IMAGE
     }
 }
 
