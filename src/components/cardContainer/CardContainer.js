@@ -6,12 +6,12 @@ import { string, func, object } from 'prop-types';
 import Card from '../card/Card';
 import { withRouter } from "react-router";
 import { getImagesAsync, loadImagesAsync,setImage } from '../../logic/cardContainer/actions'
-import {Link} from "react-router-dom";
-
+import CategoryItem from '../categoryItem/CategoryItem'
 
 const CardContainer = ({images, setActiveImage, history, getImages, loadImages, query}) => {
     const [ isLoading, setIsLoading] = useState(false);
     const [ page, setPage ] = useState(1);
+    const [collections, setCollections] = useState(false)
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, true);
@@ -51,6 +51,7 @@ const CardContainer = ({images, setActiveImage, history, getImages, loadImages, 
 
     return (
         <div className='card-container'>
+            {collections[0] && <CategoryItem item = {collections[0]} />}
             {
                 images.results.map((item) =>
                     <Card onClick={handleItemClick} image={ item } key={'main' + item.id}/>
