@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import TextInput from '../textInput/TextInput'
 import './style.sass'
 import { connect } from 'react-redux';

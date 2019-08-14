@@ -2,24 +2,19 @@ import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import './style.sass';
-import sampleImg from '../../assets/sample.png';
-import HOC from "../../logic/HOC";
 import PropTypes from "prop-types";
 
 export const Card = (props) => {
 
-    const { alt_description, urls, id, description } = props.image;
-    const { onClick, name } = props;
+    const { alt_description, urls, description, id } = props.image;
+    const { onClick } = props;
 
     const handleClick = () => {
-        const { image, onClick}  = props;
-        //
         onClick(id);
     };
 
-
     return(
-        <div className='card' id = {id} onClick={ handleClick }>
+        <div tabIndex={0} className='card' onClick={ handleClick }>
                 <LazyLoadImage
                     className='card__image'
                     alt={alt_description}
@@ -32,7 +27,6 @@ export const Card = (props) => {
 
             <div className='card-info'>
                 <p className='card-info__description'>{description || alt_description}</p>
-                {/*<button className='card-info__open-btn' >Open</button>*/}
             </div>
         </div>
     )
@@ -50,9 +44,13 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-    alt_description: 'description',
-    urls: {
-        regular: sampleImg
-    }
+    image: {
+        alt_description: 'description',
+        id: 'id',
+        urls:{
+            regular: 'http:/link.jpg',
+        }
+    },
+    onClick: () => {}
 };
-export default  HOC(Card);
+export default  Card;

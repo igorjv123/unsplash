@@ -2,8 +2,6 @@ import React from 'react';
 import { Card } from "./Card";
 import { render,mount } from 'enzyme';
 
-
-
 describe('Card ', () => {
     const onClick = jest.fn();
     const imageMock = {

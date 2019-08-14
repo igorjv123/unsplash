@@ -30,14 +30,15 @@ const ImageItem = (props) => {
                             onClick={handleTagClick}
                             key={`tags-list-${title}`}
                             id={title}
+                            tabIndex={0}
                         >
                             {title}
                         </button>
                     )}
                 </div>
                 <div className='image-item__buttons'>
-                    <a target='_blank' download="image.jpg" href={links.download} className='image-button'>Download</a>
-                    <button className='image-button' onClick={goBack}>Back</button>
+                    <a tabIndex={0} target='_blank' download="image.jpg" href={links.download} className='image-button'>Download</a>
+                    <button tabIndex={0} className='image-button' onClick={goBack}>Back</button>
                 </div>
 
             </div>
