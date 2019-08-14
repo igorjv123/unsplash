@@ -37,7 +37,7 @@ const ImageItem = (props) => {
                 </div>
                 <div className='image-item__buttons'>
                     <a target='_blank' download="image.jpg" href={links.download} className='image-button'>Download</a>
-                    <Link className='image-button' onClick={goBack}>Back</Link>
+                    <button className='image-button' onClick={goBack}>Back</button>
                 </div>
 
             </div>

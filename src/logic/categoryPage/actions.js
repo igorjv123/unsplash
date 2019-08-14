@@ -19,7 +19,6 @@ export const getCategoryPhotosAsync = (id) => {
     return dispatch => {
         collectionsService.getCollectionPhotos(id, 1, 10)
             .then(res => {
-                console.log(res)
                 dispatch(getImages(res))
             })
     }
