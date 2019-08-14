@@ -4,6 +4,7 @@ const state = {
         results: []
     },
     activeImage: {},
+    collectionImages: []
 
 };
 export default state;

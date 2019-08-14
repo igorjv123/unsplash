@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import MainInputButton from '../mainInputButton/MainInputButton'
 import { func } from 'prop-types'
 import setQuery from '../../logic/mainSearch/actions'
+import { withRouter } from "react-router";
 
 
 const MainSearch = (props) => {
@@ -20,6 +21,10 @@ const MainSearch = (props) => {
         props.setNewQuery(query)
     }
 
+    const handleCategoriesClick = () => {
+        props.history.push('/categories')
+    }
+
     return(
         <div className = 'header' >
             <TextInput
@@ -33,6 +38,12 @@ const MainSearch = (props) => {
                 onClick={handleBtnClick}
             >
                 Search
+            </MainInputButton>
+            <MainInputButton
+                className={'header__search-button'}
+                onClick={handleCategoriesClick}
+            >
+                Categories
             </MainInputButton>
         </div>
     )
@@ -61,4 +72,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MainSearch));

@@ -5,13 +5,12 @@ import loading from '../../assets/giphy.gif';
 import { string, func, object } from 'prop-types';
 import Card from '../card/Card';
 import { withRouter } from "react-router";
-import { getImagesAsync, loadImagesAsync,setImage } from '../../logic/cardContainer/actions'
+import { getImagesAsync, loadImagesAsync } from '../../logic/cardContainer/actions'
 import CategoryItem from '../categoryItem/CategoryItem'
 
 const CardContainer = ({images, setActiveImage, history, getImages, loadImages, query}) => {
     const [ isLoading, setIsLoading] = useState(false);
     const [ page, setPage ] = useState(1);
-    const [collections, setCollections] = useState(false)
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, true);
@@ -51,7 +50,6 @@ const CardContainer = ({images, setActiveImage, history, getImages, loadImages, 
 
     return (
         <div className='card-container'>
-            {collections[0] && <CategoryItem item = {collections[0]} />}
             {
                 images.results.map((item) =>
                     <Card onClick={handleItemClick} image={ item } key={'main' + item.id}/>
@@ -90,8 +88,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-        getImages: getImagesAsync,
-        loadImages: loadImagesAsync,
+    getImages: getImagesAsync,
+    loadImages: loadImagesAsync,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CardContainer));
