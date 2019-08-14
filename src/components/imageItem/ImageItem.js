@@ -11,7 +11,9 @@ const ImageItem = (props) => {
         props.searchByTag(e.target.id)
         props.history.push('/')
     }
-
+    const goBack = () => {
+        props.history.goBack()
+    }
     const { alt_description, user, urls, created_at, likes, tags, links, description } = props.activeImage;
 
     return(
@@ -35,7 +37,7 @@ const ImageItem = (props) => {
                 </div>
                 <div className='image-item__buttons'>
                     <a target='_blank' download="image.jpg" href={links.download} className='image-button'>Download</a>
-                    <Link className='image-button' to='/'>Back</Link>
+                    <Link className='image-button' onClick={goBack}>Back</Link>
                 </div>
 
             </div>
