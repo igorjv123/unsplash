@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainSearch  should render without crashing 1`] = `
+<div
+  className="header"
+>
+  <TextInput
+    className="header__input"
+    onChange={[Function]}
+    onClick={[Function]}
+    placeholder="Type smth..."
+    value=""
+  />
+  <MainInputButton
+    className="header__search-button btn-search"
+    onClick={[Function]}
+  >
+    Search
+  </MainInputButton>
+  <MainInputButton
+    className="header__search-button"
+    onClick={[Function]}
+  >
+    Categories
+  </MainInputButton>
+</div>
+`;

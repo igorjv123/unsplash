@@ -1,8 +1,9 @@
 import React from 'react';
 import MainInputButton from './MainInputButton';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-describe('MainSearch', () => {
+describe('MainInputButton', () => {
+    Date.now = jest.fn(() => 1482363367071);
     const onClick = jest.fn(() => 'Set new query');
     let className = 'className';
     let children = 'children';
@@ -13,21 +14,22 @@ describe('MainSearch', () => {
     })
 
     it('should call setNewQuery prop function', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
             <MainInputButton
                 onClick = {onClick}
             >
+                {children}
             </MainInputButton>
         );
-        const input = wrapper.find('button')
+        const button = wrapper.find('button');
 
-        input.simulate('click');
+        button.simulate('click');
 
         expect(onClick).toHaveBeenCalled();
     });
 
     it('should set attribs from props', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
             <MainInputButton
                 className = {className}
                 onClick = {onClick}>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './style.sass';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import setQuery from '../../logic/mainSearch/actions'
-import {func, object} from "prop-types";
+import {oneOfType, func, string, shape, number, arrayOf} from "prop-types";
 
-const ImageItem = (props) => {
+export const ImageItem = (props) => {
 
     const handleTagClick = function(e) {
         props.searchByTag(e.target.id)
@@ -14,7 +14,7 @@ const ImageItem = (props) => {
     const goBack = () => {
         props.history.goBack()
     }
-    const { alt_description, user, urls, created_at, likes, tags, links, description } = props.activeImage;
+    const { alt_description, user, urls, likes, tags, links, description } = props.activeImage;
 
     return(
         <div className='image-item'>
@@ -38,7 +38,7 @@ const ImageItem = (props) => {
                 </div>
                 <div className='image-item__buttons'>
                     <a tabIndex={0} target='_blank' download="image.jpg" href={links.download} className='image-button'>Download</a>
-                    <button tabIndex={0} className='image-button' onClick={goBack}>Back</button>
+                    <button tabIndex={0} className='image-button back-button' onClick={goBack}>Back</button>
                 </div>
 
             </div>
@@ -49,21 +49,57 @@ const ImageItem = (props) => {
 }
 
 ImageItem.propTypes = {
-    activeImage: object,
-    searchByTag: func
+    activeImage: shape({
+        alt_description: string.isRequired,
+        user: shape({
+            name: string.isRequired
+        }),
+        urls: shape({
+            regular: string.isRequired
+        }),
+        likes: oneOfType([
+            string,
+            number
+        ]).isRequired,
+
+        tags: arrayOf(shape({
+            title: string.isRequired
+        })),
+
+        links: shape({
+            download: string.isRequired
+        }),
+        description: string.isRequired
+    }).isRequired,
+
+    searchByTag: func.isRequired,
+
+    history: shape({
+        push: func.isRequired,
+        goBack: func.isRequired
+    }).isRequired
 }
 
 ImageItem.defaultProps = {
     activeImage: {
-        alt_description: 'description',
+        alt_description: 'alt_description',
+        description: 'description',
         user: {
             name: 'John Doe'
         },
-        urls: {},
-        created_at: '01.01.01',
+        urls: {
+            regular: 'link.regular'
+        },
         likes: 1,
-        tags: [],
-        links: {}
+        tags: [{
+            title: 'tagName'
+        }],
+        links: {
+            download: 'link.download'
+        },
+        history: {
+            push: () => {}
+        }
 
     },
     searchByTag: () => {}

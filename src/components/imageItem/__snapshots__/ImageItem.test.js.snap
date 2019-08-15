@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageItem  should render without crashing 1`] = `
+<ImageItem
+  activeImage={
+    Object {
+      "alt_description": "alt_description",
+      "description": "description",
+      "likes": 1,
+      "links": Object {
+        "download": "link.download",
+      },
+      "tags": Array [
+        Object {
+          "title": "tagName",
+        },
+        Object {
+          "title": "tagName2",
+        },
+      ],
+      "urls": Object {
+        "regular": "www.link.some",
+      },
+      "user": Object {
+        "name": "John Doe",
+      },
+    }
+  }
+  history={
+    Object {
+      "goBack": [MockFunction],
+      "push": [MockFunction],
+    }
+  }
+  searchByTag={[MockFunction]}
+>
+  <div
+    className="image-item"
+  >
+    <img
+      alt="description"
+      className="image-item__image"
+      src="www.link.some"
+    />
+    <div
+      className="image-item__info"
+    >
+      <p
+        className="image-description"
+      >
+        alt_description
+      </p>
+      <p
+        className="image-author"
+      >
+        author: 
+        John Doe
+        , likes: 
+        1
+      </p>
+      <div
+        className="image-tags"
+      >
+        <button
+          className="image-tags__item"
+          id="tagName"
+          key="tags-list-tagName"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          tagName
+        </button>
+        <button
+          className="image-tags__item"
+          id="tagName2"
+          key="tags-list-tagName2"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          tagName2
+        </button>
+      </div>
+      <div
+        className="image-item__buttons"
+      >
+        <a
+          className="image-button"
+          download="image.jpg"
+          href="link.download"
+          tabIndex={0}
+          target="_blank"
+        >
+          Download
+        </a>
+        <button
+          className="image-button back-button"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</ImageItem>
+`;

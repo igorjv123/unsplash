@@ -14,7 +14,7 @@ export const Card = (props) => {
     };
 
     return(
-        <div tabIndex={0} className='card' onClick={ handleClick }>
+        <div className='card' onClick={ handleClick }>
                 <LazyLoadImage
                     className='card__image'
                     alt={alt_description}

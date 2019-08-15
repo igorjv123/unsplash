@@ -3,12 +3,12 @@ import TextInput from '../textInput/TextInput'
 import './style.sass'
 import { connect } from 'react-redux';
 import MainInputButton from '../mainInputButton/MainInputButton'
-import { func } from 'prop-types'
+import { func, shape } from 'prop-types'
 import setQuery from '../../logic/mainSearch/actions'
 import { withRouter } from "react-router";
 
 
-const MainSearch = (props) => {
+export const MainSearch = (props) => {
 
     const [query, setQuery] = useState('')
 
@@ -31,10 +31,10 @@ const MainSearch = (props) => {
                 className='header__input'
                 placeholder={'Type smth...'}
                 value = {query}
-                onChange={handleInputChange}
+                onClick={handleInputChange}
             />
             <MainInputButton
-                className={'header__search-button'}
+                className={'header__search-button btn-search'}
                 onClick={handleBtnClick}
             >
                 Search
@@ -50,7 +50,10 @@ const MainSearch = (props) => {
 }
 
 MainSearch.propTypes = {
-    setNewQuery: func
+    setNewQuery: func.isRequired,
+    history: shape({
+        push: func.isRequired
+    })
 }
 
 MainSearch.defaultProps = {
@@ -62,7 +65,6 @@ const mapStateToProps = (state) => {
     return { query }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
     return{
         setNewQuery(query){
@@ -70,6 +72,5 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MainSearch));

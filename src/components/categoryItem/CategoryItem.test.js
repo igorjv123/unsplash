@@ -8,7 +8,10 @@ describe('CategoryItem ', () => {
         id: 'id',
         title: 'title',
         description: 'desc',
-        preview_photos: ['www.link.com']
+        preview_photos: [{urls: {
+                small: 'www.default-link.com'
+            }
+        }]
     };
 
     beforeEach(function () {

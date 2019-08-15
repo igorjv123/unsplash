@@ -9,7 +9,7 @@ export const CategoryItem = (props) => {
         props.onClick(id)
     }
     return(
-      <div className={'category-item'} onClick={ handleClick } tabIndex={0}>
+      <div className={'category-item'} onClick={ handleClick }>
           <img className={'category-item__image'} src={preview_photos[0].urls.small} alt={description}/>
           <h2 className={'category-item__title'}>
               <span>{title}</span>
@@ -20,16 +20,15 @@ export const CategoryItem = (props) => {
 
 CategoryItem.propTypes = {
     item: shape({
-        id: string,
-        title: string,
-        description: string,
-        preview_photos: arrayOf([
-            shape({
-              urls: shape({
-                small: string
-              })
+        id: string.isRequired,
+        title: string.isRequired,
+        description: string.isRequired,
+        preview_photos: arrayOf(shape({
+            urls: shape({
+                small: string.isRequired
             })
-        ])
+        })
+        )
     }).isRequired,
     onClick: func.isRequired
 }

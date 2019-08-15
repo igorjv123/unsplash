@@ -4,7 +4,6 @@ import { string, func } from 'prop-types';
 const TextInput = ({ value, onChange, placeholder, className }) => {
     return(
         <input
-            tabIndex={0}
             type="text"
             className={className}
             defaultValue={value}
