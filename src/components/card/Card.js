@@ -1,28 +1,56 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './style.sass';
-import { string, object } from 'prop-types';
-import sampleImg from '../../assets/sample.png';
-import HOC from "../../logic/HOC";
-const Card = (props) => {
+import PropTypes from "prop-types";
 
-    const { alt_description, urls } = props.image;
+export const Card = (props) => {
+
+    const { alt_description, urls, description, id } = props.image;
+    const { onClick } = props;
+
+    const handleClick = () => {
+        onClick(id);
+    };
+
     return(
-        <div className='card'>
-            <img className='card__image' src={urls.regular} alt=""/>
-            <p className='card__description'>{alt_description}</p>
+        <div className='card' onClick={ handleClick }>
+                <LazyLoadImage
+                    className='card__image'
+                    alt={alt_description}
+                    effect="blur"
+                    src={urls.regular}
+                    width='400px'
+                    height='400px'
+                    style={{objectFit: 'cover', objectPosition:'center'}}
+                />
+
+            <div className='card-info'>
+                <p className='card-info__description'>{description || alt_description}</p>
+            </div>
         </div>
     )
 };
 
 Card.propTypes = {
-    alt_description: string,
-    urls: object
+    image: PropTypes.shape({
+        urls: PropTypes.shape({
+            regular: PropTypes.string
+        }),
+        alt_description: PropTypes.string
+    }).isRequired,
+    onClick: PropTypes.func.isRequired
+
 };
 
 Card.defaultProps = {
-    alt_description: 'description',
-    urls: {
-        regular: sampleImg
-    }
+    image: {
+        alt_description: 'description',
+        id: 'id',
+        urls:{
+            regular: 'http:/link.jpg',
+        }
+    },
+    onClick: () => {}
 };
-export default  HOC(Card);
+export default  Card;

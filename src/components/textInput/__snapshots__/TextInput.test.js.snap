@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput should set attribs from props 1`] = `
+<input
+  class="class"
+  placeholder="placeholder"
+  type="text"
+  value="val"
+/>
+`;

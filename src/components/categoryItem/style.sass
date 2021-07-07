@@ -1,0 +1,39 @@
+.category-item
+  height: 250px
+  width: 250px
+  position: relative
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  color: #fff
+  padding: 0
+  margin: 10px
+  cursor: pointer
+  overflow: hidden
+  box-shadow: 0 1px 2px 2px rgba(60,64,67,.2), 0 1px 3px 1px rgba(60,64,67,.15)
+
+  &:hover .category-item
+    &__image
+      transform: scale(1.5)
+
+  &__image
+    position: absolute
+    height: 100%
+    width: 100%
+    top: 0
+    left: 0
+    object-fit: cover
+    transition: transform .3s
+
+  &__title
+    z-index: 300
+    text-align: center
+    height: 100%
+    width: 100%
+    background-color: rgba(0,0,0, .5)
+    margin: 0
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center

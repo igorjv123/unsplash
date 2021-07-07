@@ -1,18 +1,23 @@
-import { GET_IMAGES, GET_IMAGES_SUCCESS, LOAD_IMAGES, LOAD_IMAGES_SUCCESS } from './actionTypes'
+import { GET_IMAGES_SUCCESS, LOAD_IMAGES_SUCCESS, SET_IMAGES } from './actionTypes'
 import getImagesService from "../../services/imagesService";
 
-export const getImages = (payload) => {
-    return{
-        // type: GET_IMAGES,
+const getImages = (payload) => {
+    return {
         type: GET_IMAGES_SUCCESS,
         payload
     }
 };
-export const loadImages = (payload) => {
-    return{
-        // type: LOAD_IMAGES,
+
+const loadImages = (payload) => {
+    return {
         type: LOAD_IMAGES_SUCCESS,
         payload
+    }
+};
+
+export const setImages = () => {
+    return {
+        type: SET_IMAGES
     }
 }
 
@@ -22,7 +27,7 @@ export const getImagesAsync = (payload) => {
             .then(res => {
                 dispatch(getImages(res))
             })
-}
+};
 
 export const loadImagesAsync = (payload) => {
     return dispatch =>

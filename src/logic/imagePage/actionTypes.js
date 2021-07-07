@@ -1,0 +1,2 @@
+export const GET_IMAGE_BY_ID = 'GET_IMAGE_BY_ID';
+export const RESET_ACTIVE_IMAGE = 'RESET_ACTIVE_IMAGE';

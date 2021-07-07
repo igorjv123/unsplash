@@ -9,13 +9,13 @@ const MainInputButton = (props) => {
 }
 
 MainInputButton.propTypes = {
-    className: string,
-    onClick: func,
+    className: string.isRequired,
+    onClick: func.isRequired,
     children: string || func || object,
 };
 
 MainInputButton.defaultProps = {
-    className: 'header-button',
+    className: 'mainSearch-button',
     onClick: () => {},
     children: 'OK'
 };

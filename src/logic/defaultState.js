@@ -1,5 +1,10 @@
 const state = {
-    query: '',
-    images: {}
+    query: 'popular',
+    images: {
+        results: []
+    },
+    activeImage: {},
+    collectionImages: []
+
 };
 export default state;

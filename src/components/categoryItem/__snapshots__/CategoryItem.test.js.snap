@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryItem  should render without crashing 1`] = `
+<div
+  class="category-item"
+>
+  <img
+    alt="desc"
+    class="category-item__image"
+    src="www.default-link.com"
+  />
+  <h2
+    class="category-item__title"
+  >
+    <span>
+      title
+    </span>
+  </h2>
+</div>
+`;

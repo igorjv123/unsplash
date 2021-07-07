@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card  should render correctly 1`] = `
+<div
+  class="card"
+>
+  <span
+    class=" lazy-load-image-background blur"
+    style="background-image:url( );background-size:100% 100%;color:transparent;display:inline-block;height:400px;width:400px"
+  >
+    <span
+      class="card__image"
+      style="display:inline-block;height:400px;width:400px;object-fit:cover;object-position:center"
+    />
+  </span>
+  <div
+    class="card-info"
+  >
+    <p
+      class="card-info__description"
+    >
+      Alt Desc
+    </p>
+  </div>
+</div>
+`;

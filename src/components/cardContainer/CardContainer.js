@@ -1,88 +1,84 @@
-import React, { Component } from 'react';
-import './style.sass'
+import React, { useState, useEffect, useRef  } from 'react';
+import './style.sass';
 import { connect } from "react-redux";
-import loading from '../../assets/giphy.gif'
-import { string, func, object } from 'prop-types'
-import Card from '../card/Card'
+import loading from '../../assets/giphy.gif';
+import { string, func, object } from 'prop-types';
+import Card from '../card/Card';
+import { withRouter } from "react-router";
 import { getImagesAsync, loadImagesAsync } from '../../logic/cardContainer/actions'
+import CategoryItem from '../categoryItem/CategoryItem'
 
+const CardContainer = ({images, setActiveImage, history, getImages, loadImages, query}) => {
+    const [ isLoading, setIsLoading] = useState(false);
+    const [ page, setPage ] = useState(1);
 
-class CardContainer extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            isLoading : false,
-            page: 1,
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, true);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll, true)
         }
+    }, [page])
+
+    useEffect(() => {
+        setIsLoading(true);
+        getImages(query);
+    }, [query])
+
+
+    useEffect(() => {
+        if (images.total_pages >= page) {
+            loadImages({
+                query,
+                page
+            })
+        }
+    }, [page])
+
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.offsetHeight) {
+            setPage(page+1);
+        }
+    };
+
+    const handleItemClick = (id) => {
+        history.push('/image/' + id)
+
     }
 
-    static propTypes = {
-        query: string,
-        getImages: func,
-        loadImages: func,
-        images: object || string
-    }
-    static defaultProps = {
-        query: '',
-        getImages: () => {},
-        loadImages: () => {},
-        images: {}
-    }
-    componentDidMount() {
-        const { query } = this.props
-        if(query.length > 0) {
-            this.setState({isLoading: true})
-            this.props.getImages(query);
-        }
-    }
-    componentWillMount() {
-        window.addEventListener('scroll', this.handleScroll, true);
-    }
+    const shouldBeLoading = isLoading && images.results.length < images.total;
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll, true)
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.query !== this.props.query) {
-            this.props.getImages(this.props.query);
-            this.setState({ isLoading: true })
-        }
-        if (prevProps.images !== this.props.images) {
-            this.setState({ isLoading: false })
-        }
-    }
-
-    handleScroll = () => {
-        const { page } = this.state;
-        const { query, images } = this.props;
-        if (window.innerHeight + document.documentElement.scrollTop + 1 < document.documentElement.offsetHeight){
-            return;
-        }
-        this.setState({ page: page + 1, isLoading: true}, () => {
-                if (images.total_pages >= page) {
-                    this.props.loadImages({query: query, page: this.state.page})
-                }
+    return (
+        <div className='card-container'>
+            {
+                images.results.map((item) =>
+                    <Card onClick={handleItemClick} image={ item } key={'main' + item.id}/>
+                )
             }
-        )
-    }
 
-    render() {
-        const { images } = this.props;
-        const { isLoading } = this.state;
-        return(
-            <div className='card-container'>
-                {images.results && images.results.map((item) =>
-                        <Card image={ item } key={'main' + item.id}/>
-                    )
-                }
+            {
+                shouldBeLoading &&
+                <img className='card-container__loading-img' src={ loading } alt='loading' />
+            }
 
-                {isLoading && images.results && images.results.length < images.total &&
-                    <img className='card-container__loading-img' src={ loading } alt='loading' />
-                }
+        </div>
+    )
 
-            </div>
-        )
+}
+
+CardContainer.propTypes = {
+    query: string,
+    getImages: func,
+    loadImages: func,
+    images: object || string
+}
+
+CardContainer.defaultProps = {
+    query: '',
+    getImages: () => {},
+    loadImages: () => {},
+    images: {
+        results: []
     }
 }
 
@@ -91,15 +87,9 @@ const mapStateToProps = state => {
     return { images, query };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        getImages(data){
-            dispatch(getImagesAsync(data));
-        },
-        loadImages(data){
-            dispatch(loadImagesAsync(data))
-        }
-    }
+const mapDispatchToProps = {
+    getImages: getImagesAsync,
+    loadImages: loadImagesAsync,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CardContainer));
